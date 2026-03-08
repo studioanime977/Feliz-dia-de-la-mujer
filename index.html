@@ -45,6 +45,61 @@
             position: relative;
         }
 
+        /* Landing Overlay */
+        .landing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #fff 0%, #ffeef2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            cursor: pointer;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+        }
+
+        .landing-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .envelope-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            animation: float-heart 3s infinite ease-in-out;
+            color: #D64E6C;
+        }
+
+        @keyframes float-heart {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        .landing-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #D64E6C;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .landing-sub {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
         /* Ambient Background */
         .background-overlay {
             position: fixed;
@@ -124,6 +179,12 @@
             animation: fadeInScale 1.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 5;
+            display: none;
+            /* Hidden until landing clicked */
+        }
+
+        .card.visible {
+            display: block;
         }
 
         @keyframes fadeInScale {
@@ -271,20 +332,6 @@
             color: #555;
         }
 
-        /* Audio Indicator (Optional small cue) */
-        .audio-hint {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 0.8rem;
-            color: #aaa;
-            z-index: 5;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 5px 12px;
-            border-radius: 20px;
-            pointer-events: none;
-        }
-
         /* Responsive */
         @media (max-width: 480px) {
             h1 {
@@ -323,12 +370,18 @@
         <source src="perfect.mp3" type="audio/mpeg">
     </audio>
 
+    <div class="landing-overlay" id="landingOverlay">
+        <div class="envelope-icon">💌</div>
+        <div class="landing-text">Un mensaje especial para ti, Belén...</div>
+        <div class="landing-sub">Haz clic aquí para abrirlo</div>
+    </div>
+
     <div class="background-overlay"></div>
     <div class="flower-bg"></div>
 
     <div class="floating-container" id="petals"></div>
 
-    <main class="card">
+    <main class="card" id="mainCard">
         <h1>Para una mujer especial... Belén 💙🌹</h1>
 
         <p style="font-size:1.1rem; color:#666; margin-bottom:25px; font-style:italic;">
@@ -365,15 +418,20 @@
         </div>
     </div>
 
-    <div class="audio-hint">Toca en cualquier lugar para la música 🎵</div>
-
     <script>
-        // Audio handling
-        document.body.addEventListener("click", function () {
-            const music = document.getElementById("music");
+        const landingOverlay = document.getElementById('landingOverlay');
+        const mainCard = document.getElementById('mainCard');
+        const music = document.getElementById("music");
+
+        // Landing overlay click -> triggers music and reveals card
+        landingOverlay.addEventListener('click', () => {
+            landingOverlay.classList.add('hidden');
+            mainCard.classList.add('visible');
             music.play().catch(e => console.log("Audio play failed:", e));
-            document.querySelector('.audio-hint').style.display = 'none';
-        }, { once: true });
+
+            // Start creating petals only after opening
+            setInterval(createPetal, 500);
+        });
 
         // Animation for floating petals/flowers
         function createPetal() {
@@ -404,9 +462,6 @@
                 petal.remove();
             }, (parseFloat(duration) + parseFloat(delay)) * 1000);
         }
-
-        // Initialize floating flowers
-        setInterval(createPetal, 500);
 
         // Interaction logic
         const surpriseBtn = document.getElementById('surpriseBtn');
