@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Día de la Mujer, Belén 🌹</title>
+    <title>Para una mujer especial... Belén 💙🌹</title>
     <!-- Google Fonts: Playfair Display & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --soft-pink: #FFFBFC;
@@ -18,6 +21,11 @@
             --text-dark: #333333;
             --glass-bg: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Prevent scrolling on modal open */
+        body.modal-open {
+            overflow: hidden;
         }
 
         * {
@@ -55,7 +63,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&q=80&w=2070'); /* Placeholder for premium floral feel */
+            background-image: url('https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&q=80&w=2070');
             background-size: cover;
             background-position: center;
             z-index: -1;
@@ -66,6 +74,8 @@
         /* Floating Components */
         .floating-container {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
@@ -76,6 +86,7 @@
             position: absolute;
             opacity: 0.6;
             animation: fall linear forwards;
+            will-change: transform, opacity;
         }
 
         @keyframes fall {
@@ -83,7 +94,15 @@
                 transform: translateY(-100px) translateX(0) rotate(0deg);
                 opacity: 0;
             }
-            10% { opacity: 0.6; }
+
+            10% {
+                opacity: 0.7;
+            }
+
+            90% {
+                opacity: 0.7;
+            }
+
             100% {
                 transform: translateY(110vh) translateX(100px) rotate(360deg);
                 opacity: 0;
@@ -97,12 +116,12 @@
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 30px;
-            padding: 3rem 2rem;
-            max-width: 600px;
+            padding: 3.5rem 2.5rem;
+            max-width: 650px;
             width: 90%;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            animation: fadeInScale 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInScale 1.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 5;
         }
@@ -110,8 +129,9 @@
         @keyframes fadeInScale {
             from {
                 opacity: 0;
-                transform: scale(0.9) translateY(20px);
+                transform: scale(0.95) translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
@@ -121,25 +141,34 @@
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.8rem;
-            color: #D64E6C; /* Elegant rose color */
-            margin-bottom: 1.5rem;
+            color: #D64E6C;
+            margin-bottom: 2rem;
             line-height: 1.2;
+            word-wrap: break-word;
         }
 
         .emotive-message {
             font-size: 1.25rem;
             color: var(--text-dark);
             font-weight: 500;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             line-height: 1.6;
         }
 
         .sweet-paragraph {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 2.5rem;
+            font-size: 1.15rem;
+            color: #555;
+            margin-bottom: 3rem;
             line-height: 1.8;
             font-style: italic;
+        }
+
+        .special-note {
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #888;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         /* Button Styling */
@@ -147,24 +176,25 @@
             background: linear-gradient(45deg, #FF99AC, #89CFF0);
             color: white;
             border: none;
-            padding: 1.2rem 2.5rem;
+            padding: 1.3rem 3rem;
             font-size: 1.1rem;
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(255, 153, 172, 0.3);
+            box-shadow: 0 10px 25px rgba(255, 153, 172, 0.3);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            outline: none;
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 153, 172, 0.4);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(255, 153, 172, 0.4);
         }
 
         .btn:active {
-            transform: translateY(0);
+            transform: translateY(-1px);
         }
 
         /* Surprise Modal */
@@ -174,15 +204,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 100;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s ease;
-            backdrop-filter: blur(5px);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .modal-overlay.active {
@@ -192,14 +223,16 @@
 
         .modal {
             background: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 25px;
-            max-width: 450px;
+            padding: 4rem 2.5rem;
+            border-radius: 35px;
+            max-width: 500px;
             width: 85%;
             text-align: center;
-            transform: translateY(50px);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: translateY(60px);
+            transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .modal-overlay.active .modal {
@@ -209,89 +242,147 @@
         .modal h2 {
             font-family: 'Playfair Display', serif;
             color: #4A90E2;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
         }
 
         .modal p {
             font-size: 1.2rem;
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.8;
+            min-height: 120px;
+            /* Space for typewriter */
         }
 
         .close-btn {
-            margin-top: 2rem;
-            background: #f0f0f0;
-            color: #666;
-            padding: 0.8rem 1.5rem;
+            margin-top: 2.5rem;
+            background: #f8f8f8;
+            color: #888;
+            padding: 0.9rem 2rem;
             border-radius: 50px;
-            border: none;
+            border: 1px solid #eee;
             cursor: pointer;
             font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #eee;
+            color: #555;
+        }
+
+        /* Audio Indicator (Optional small cue) */
+        .audio-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.8rem;
+            color: #aaa;
+            z-index: 5;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 5px 12px;
+            border-radius: 20px;
+            pointer-events: none;
         }
 
         /* Responsive */
         @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            .card { padding: 2.5rem 1.5rem; }
-            .emotive-message { font-size: 1.1rem; }
-            .sweet-paragraph { font-size: 1rem; }
+            h1 {
+                font-size: 2.1rem;
+            }
+
+            .card {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .emotive-message {
+                font-size: 1.15rem;
+            }
+
+            .sweet-paragraph {
+                font-size: 1rem;
+            }
+
+            .modal {
+                padding: 3rem 1.5rem;
+            }
         }
 
-        /* flower icons */
         .flower-icon {
             font-size: 2rem;
             display: inline-block;
             margin: 0 5px;
+            vertical-align: middle;
         }
     </style>
 </head>
+
 <body>
+
+    <audio id="music" loop>
+        <source src="perfect.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="background-overlay"></div>
     <div class="flower-bg"></div>
-    
+
     <div class="floating-container" id="petals"></div>
 
     <main class="card">
-        <h1>Feliz Día de la Mujer, Belén <span class="flower-icon">🌹</span></h1>
-        
+        <h1>Para una mujer especial... Belén 💙🌹</h1>
+
         <p class="emotive-message">
-            Belén, eres una mujer verdaderamente especial, fuerte y hermosa. 
+            Belén, eres una mujer verdaderamente especial, fuerte y hermosa.
             Tu presencia ilumina la vida de todos los que tenemos la suerte de rodearte.
         </p>
-        
+
         <p class="sweet-paragraph">
-            "Gracias por existir y por ser esa persona tan increíble. Tu manera de ser, 
-            tan única y llena de luz, hace que el mundo sea un lugar mucho más bonito. 
+            "Gracias por existir y por ser esa persona tan increíble. Tu manera de ser,
+            tan única y llena de luz, hace que el mundo sea un lugar mucho más bonito.
             Gracias por cada sonrisa y por inspirarnos a todos."
         </p>
 
         <button class="btn" id="surpriseBtn">Un pequeño detalle para ti</button>
+
+        <p class="special-note">
+            Un pequeño detalle hecho especialmente para ti
+        </p>
     </main>
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <h2>¡Sorpresa! 🌷💙</h2>
-            <p>Belén, eres una mujer increíble. Que nunca dejes de brillar.</p>
+            <p id="typewriterText"></p>
             <button class="close-btn" id="closeBtn">Cerrar</button>
         </div>
     </div>
 
+    <div class="audio-hint">Toca en cualquier lugar para la música 🎵</div>
+
     <script>
+        // Audio handling
+        document.body.addEventListener("click", function () {
+            const music = document.getElementById("music");
+            music.play().catch(e => console.log("Audio play failed:", e));
+            document.querySelector('.audio-hint').style.display = 'none';
+        }, { once: true });
+
         // Animation for floating petals/flowers
         function createPetal() {
             const container = document.getElementById('petals');
+            if (!container) return;
+
             const petal = document.createElement('div');
             petal.className = 'petal';
-            
-            // Randomly choose between a rose and a tulip
-            const flowers = ['🌹', '🌷', '💙', '🌸', '✨'];
+
+            // Randomly choose between a rose and a tulip and blue variants
+            const flowers = ['🌹', '🌷', '💙', '🌸', '✨', '💐', '💠'];
             petal.innerText = flowers[Math.floor(Math.random() * flowers.length)];
-            
+
             const startX = Math.random() * window.innerWidth;
-            const size = Math.random() * 20 + 20 + 'px';
-            const duration = Math.random() * 5 + 5 + 's';
-            const delay = Math.random() * 5 + 's';
+            const size = Math.random() * 25 + 20 + 'px';
+            const duration = Math.random() * 6 + 7 + 's';
+            const delay = Math.random() * 2 + 's';
 
             petal.style.left = startX + 'px';
             petal.style.fontSize = size;
@@ -301,38 +392,68 @@
 
             container.appendChild(petal);
 
-            // Remove petal after animation ends
             setTimeout(() => {
                 petal.remove();
             }, (parseFloat(duration) + parseFloat(delay)) * 1000);
         }
 
         // Initialize floating flowers
-        setInterval(createPetal, 400);
+        setInterval(createPetal, 500);
 
         // Interaction logic
         const surpriseBtn = document.getElementById('surpriseBtn');
         const modalOverlay = document.getElementById('modalOverlay');
         const closeBtn = document.getElementById('closeBtn');
+        const typewriterElement = document.getElementById('typewriterText');
+
+        const message = "Belén, hoy quería recordarte algo simple pero muy sincero… \n\nEres una mujer increíble, fuerte, hermosa y con una luz que no todos tienen. \n\nOjalá la vida siempre te regale motivos para sonreír, porque una persona como tú merece todas las flores del mundo 🌹🌷💙";
+
+        let i = 0;
+        let isTyping = false;
+
+        function typeWriter() {
+            if (i < message.length) {
+                if (message.charAt(i) === "\n") {
+                    typewriterElement.innerHTML += "<br>";
+                } else {
+                    typewriterElement.innerHTML += message.charAt(i);
+                }
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
 
         surpriseBtn.addEventListener('click', () => {
             modalOverlay.classList.add('active');
-            // Add some confetti effect if possible or just more flowers
-            for (let i = 0; i < 20; i++) {
-                setTimeout(createPetal, i * 100);
+            document.body.classList.add('modal-open');
+
+            if (!isTyping) {
+                isTyping = true;
+                i = 0;
+                typewriterElement.innerHTML = "";
+                setTimeout(typeWriter, 500);
+            }
+
+            // Burst of flowers
+            for (let j = 0; j < 25; j++) {
+                setTimeout(createPetal, j * 50);
             }
         });
 
         closeBtn.addEventListener('click', () => {
             modalOverlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+            isTyping = false;
         });
 
-        // Close on overlay click
         modalOverlay.addEventListener('click', (e) => {
             if (e.target === modalOverlay) {
                 modalOverlay.classList.remove('active');
+                document.body.classList.remove('modal-open');
+                isTyping = false;
             }
         });
     </script>
 </body>
+
 </html>
