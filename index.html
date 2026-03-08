@@ -68,21 +68,30 @@
         }
 
         .envelope-icon {
-            font-size: 5rem;
-            margin-bottom: 2rem;
-            animation: float-heart 3s infinite ease-in-out;
+            font-size: 8rem;
+            /* Larger envelope */
+            margin-bottom: 2.5rem;
+            animation: pulse-heart 2s infinite ease-in-out;
             color: #D64E6C;
+            filter: drop-shadow(0 10px 20px rgba(214, 78, 108, 0.2));
+            transition: transform 0.3s ease;
         }
 
-        @keyframes float-heart {
+        .envelope-icon:hover {
+            transform: scale(1.1);
+        }
 
-            0%,
-            100% {
-                transform: translateY(0) scale(1);
+        @keyframes pulse-heart {
+            0% {
+                transform: scale(1);
             }
 
             50% {
-                transform: translateY(-20px) scale(1.1);
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
             }
         }
 
