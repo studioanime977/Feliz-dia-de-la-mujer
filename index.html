@@ -341,6 +341,54 @@
             color: #555;
         }
 
+        /* Lock Screen Style */
+        .lock-screen {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 35px;
+            padding: 4rem 2.5rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2000;
+            display: none;
+            /* Shown via JS */
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .lock-screen h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #D64E6C;
+            margin-bottom: 1.5rem;
+        }
+
+        .lock-screen p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .lock-screen .countdown {
+            margin-top: 2.5rem;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #4A90E2;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 2px;
+        }
+
+        .lock-screen .poetic-note {
+            margin-top: 2rem;
+            font-size: 1rem;
+            color: #888;
+            font-style: italic;
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             h1 {
@@ -362,6 +410,10 @@
             .modal {
                 padding: 3rem 1.5rem;
             }
+
+            .lock-screen .countdown {
+                font-size: 2.5rem;
+            }
         }
 
         .flower-icon {
@@ -379,7 +431,15 @@
         <source src="perfect.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="landing-overlay" id="landingOverlay">
+    <div class="lock-screen" id="lockScreen">
+        <h2>No señorita... 🌷</h2>
+        <p>Esta carta todavía no se puede abrir.</p>
+        <p>Tendrás que esperar un poquito más...</p>
+        <div class="countdown" id="countdown"></div>
+        <p class="poetic-note">“Las cosas bonitas se esperan… y esta es una de ellas.”</p>
+    </div>
+
+    <div class="landing-overlay hidden" id="landingOverlay">
         <div class="envelope-icon">💌</div>
         <div class="landing-text">Un mensaje especial para ti, Belén...</div>
         <div class="landing-sub">Haz clic aquí para abrirlo</div>
@@ -428,9 +488,46 @@
     </div>
 
     <script>
+        const lockScreen = document.getElementById('lockScreen');
         const landingOverlay = document.getElementById('landingOverlay');
         const mainCard = document.getElementById('mainCard');
         const music = document.getElementById("music");
+        const countdownElement = document.getElementById("countdown");
+
+        // Fecha objetivo (Bogotá 2026-03-08 00:00:00 GMT-5)
+        const targetDate = new Date("2026-03-08T00:00:00-05:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                if (lockScreen.style.display !== "none") {
+                    lockScreen.style.display = "none";
+                    landingOverlay.classList.remove('hidden');
+                }
+                return true;
+            }
+
+            lockScreen.style.display = "block";
+            landingOverlay.classList.add('hidden');
+            mainCard.classList.remove('visible');
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            countdownElement.innerHTML = hours + "h " + minutes + "m " + seconds + "s";
+            return false;
+        }
+
+        // Initialize state
+        const isUnlocked = updateCountdown();
+        const countdownTimer = setInterval(() => {
+            if (updateCountdown()) {
+                clearInterval(countdownTimer);
+            }
+        }, 1000);
 
         // Landing overlay click -> triggers music and reveals card
         landingOverlay.addEventListener('click', () => {
